@@ -1,0 +1,44 @@
+/******
+C:\Users\arielle.thibeault\Desktop\STAT 480\Homework2.1.sas
+Written by: Arielle Thibeault
+Date: January 14, 2023
+
+This program:
+1. demonstrates how to read column input into a permanent SAS data set by reading the data 
+   instream and then prints the result.
+2. creates a temporary SAS data set from the permanent set in part 1 and prints the result
+
+*****/
+LIBNAME STAT480 'C:\Users\arielle.thibeault\Desktop\STAT 480\SAS'; *Library in my desktop folder;
+
+/***
+Part 1: Creating a permanent data set via column input.
+***/
+DATA STAT480.HW2;
+input townname $ 1-6 townnum 8-9 month 11-12 year 14-17 lowtemp 19-20 hightemp 22-23; *Note, townname is the only character variable;
+CARDS;
+Kane   20 12 2005 12 25
+Ambler 22 12 2005 08 20
+Kane   20 01 2006 13 32
+Oakey  32 12 2005 30 50
+Oakey  32 01 2006 25 45
+Ambler 22 01 2006 15 28
+;
+RUN;
+
+PROC PRINT data=STAT480.HW2;
+title 'Output datatset: STAT480.HW2';
+RUN;
+
+/***
+Part 2: Creating a temporary data set from STAT480.HW2.
+***/
+LIBNAME STAT480 'C:\Users\arielle.thibeault\Desktop\STAT 480\SAS';
+ 
+DATA temp;
+  set STAT480.HW2; *Sets the new temp data set to be exactly the STAT480.HW2 data set;
+RUN;
+ 
+PROC PRINT data=temp;
+  title 'Output dataset: TEMP';
+RUN;
